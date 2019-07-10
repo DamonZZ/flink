@@ -1,2 +1,9 @@
 
 *.prefs
+flink/.idea/libraries/Maven__com_esotericsoftware_kryo_kryo_2_24_0.xml
+flink/.idea/compiler.xml
+flink/.idea/libraries/Maven__com_twitter_chill_2_11_0_7_4.xml
+flink/.idea/libraries/Maven__com_google_code_findbugs_jsr305_1_3_9.xml
+flink/.idea/libraries/Maven__com_github_scopt_scopt_2_11_3_5_0.xml
+*.xml
+*.iml
