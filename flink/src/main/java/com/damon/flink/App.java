@@ -1,5 +1,6 @@
 package com.damon.flink;
 
+import com.damon.flink.service.KafkaService;
 import org.apache.flink.api.common.functions.FoldFunction;
 import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.api.java.tuple.Tuple2;
@@ -9,9 +10,13 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.connectors.wikiedits.WikipediaEditEvent;
 import org.apache.flink.streaming.connectors.wikiedits.WikipediaEditsSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Hello world!
@@ -20,10 +25,18 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 @SpringBootApplication
 public class App
 {
+
 	@SuppressWarnings({ "serial", "deprecation" })
 	public static void main( String[] args )
     {
         SpringApplication.run(App.class,args);
+
+//        String key = "Damon";
+//        Date date = new Date();
+//        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
+//        String value = dateFormat.format(date);
+//        new KafkaService().SendMessage(key,value);
+
 //		System.out.println(",,,,,,,");
 //
 //
