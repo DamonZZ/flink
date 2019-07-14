@@ -2,14 +2,18 @@ package com.damon.flink;
 
 import com.damon.flink.service.KafkaService;
 import org.apache.flink.api.common.functions.FoldFunction;
+import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.api.java.tuple.Tuple2;
+import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.time.Time;
+import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer09;
 import org.apache.flink.streaming.connectors.wikiedits.WikipediaEditEvent;
 import org.apache.flink.streaming.connectors.wikiedits.WikipediaEditsSource;
+import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,19 +21,37 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 
 /**
  * Hello world!
  *
  */
-@SpringBootApplication
+//@SpringBootApplication
 public class App
 {
 
 	@SuppressWarnings({ "serial", "deprecation" })
-	public static void main( String[] args )
-    {
-        SpringApplication.run(App.class,args);
+	public static void main( String[] args ) throws Exception {
+        String topic = "skynet.topic";
+        final  StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+//        env.enableCheckpointing(5000);
+        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
+        Properties properties = new Properties();
+        properties.setProperty("bootstrap.servers","94.191.65.63:9092");
+        properties.setProperty("zookeeper.connect","94.191.65.63:2181");
+        properties.setProperty("group.id","test-consumer-group");
+        FlinkKafkaConsumer09<String> consumer09 = new FlinkKafkaConsumer09<String>(topic,new SimpleStringSchema(),properties);
+
+        DataStream<String> keyedStream = env.addSource(consumer09);
+        keyedStream.print();
+
+        env.execute("Flink Streaming Java API Skeleton");
+
+
+
+
+//        SpringApplication.run(App.class,args);
 
 //        String key = "Damon";
 //        Date date = new Date();
