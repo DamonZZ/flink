@@ -14,6 +14,7 @@ import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer09;
 import org.apache.flink.streaming.connectors.wikiedits.WikipediaEditEvent;
 import org.apache.flink.streaming.connectors.wikiedits.WikipediaEditsSource;
 import org.apache.kafka.common.protocol.types.Field;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -30,9 +31,11 @@ import java.util.Properties;
 //@SpringBootApplication
 public class App
 {
+        private static Logger log = Logger.getLogger(App.class.getClass());
 
 	@SuppressWarnings({ "serial", "deprecation" })
 	public static void main( String[] args ) throws Exception {
+
         String topic = "skynet.topic";
         final  StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 //        env.enableCheckpointing(5000);
@@ -45,6 +48,9 @@ public class App
 
         DataStream<String> keyedStream = env.addSource(consumer09);
         keyedStream.print();
+
+        log.debug("Flink Started ...");
+        log.debug("Flink Started ...");
 
         env.execute("Flink Streaming Java API Skeleton");
 
