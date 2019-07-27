@@ -8,9 +8,12 @@ import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer09;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+//import org.apache.log4j.Logger;
 
 import java.util.Properties;
+//import java.util.logging.Logger;
 
 /**
  * Hello world!
@@ -19,7 +22,7 @@ import java.util.Properties;
 //@SpringBootApplication
 public class App
 {
-    private static Logger log = Logger.getLogger(App.class.getClass());
+    private static Logger log = LoggerFactory.getLogger(App.class);
 
     private static Gson gson = new Gson();
 
